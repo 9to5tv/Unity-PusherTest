@@ -9,7 +9,7 @@ namespace PusherClient
 
     public class PresenceChannel : PrivateChannel
     {
-        public Dictionary<string, dynamic> Members = new Dictionary<string, dynamic>();
+        public Dictionary<string, object> Members = new Dictionary<string, object>();
 
         public event MemberEventHandler MemberAdded;
         public event MemberEventHandler MemberRemoved;
@@ -54,9 +54,9 @@ namespace PusherClient
 
         #region Private Methods
 
-        private Dictionary<string, dynamic> ParseMembersList(string data)
+        private Dictionary<string, object> ParseMembersList(string data)
         {
-            Dictionary<string, dynamic> members = new Dictionary<string, dynamic>();
+            Dictionary<string, object> members = new Dictionary<string, object>();
 			return members;
 
 			/*
@@ -78,7 +78,7 @@ namespace PusherClient
 			*/
         }
 
-        private KeyValuePair<string, dynamic> ParseMember(string data)
+        private KeyValuePair<string, object> ParseMember(string data)
         {
 			/*
 			var dataAsObj = JsonHelper.Deserialize<dynamic>(data);
@@ -91,7 +91,7 @@ namespace PusherClient
 
 			var id = "";
 			var val ="";
-			return new KeyValuePair<string, dynamic>(id, val);
+			return new KeyValuePair<string, object>(id, val);
         }
 
         #endregion

@@ -7,10 +7,10 @@ namespace PusherClient
 {
     public class EventEmitter
     {
-        private Dictionary<string, List<Action<dynamic>>> _eventListeners = new Dictionary<string, List<Action<dynamic>>>();
-        private List<Action<string, dynamic>> _generalListeners = new List<Action<string, dynamic>>();
+        private Dictionary<string, List<Action<object>>> _eventListeners = new Dictionary<string, List<Action<object>>>();
+        private List<Action<string, object>> _generalListeners = new List<Action<string, object>>();
 
-        public void Bind(string eventName, Action<dynamic> listener)
+        public void Bind(string eventName, Action<object> listener)
         {
             if(_eventListeners.ContainsKey(eventName))
             {
@@ -18,20 +18,20 @@ namespace PusherClient
             }
             else
             {
-                List<Action<dynamic>> listeners = new List<Action<dynamic>>();
+                List<Action<object>> listeners = new List<Action<object>>();
                 listeners.Add(listener);
                 _eventListeners.Add(eventName, listeners);
             }
         }
 
-        public void BindAll(Action<string, dynamic> listener)
+        public void BindAll(Action<string, object> listener)
         {
             _generalListeners.Add(listener);
         }
 
         internal void EmitEvent(string eventName, string data)
         {
-			var obj = JsonHelper.Deserialize<dynamic>( data );
+			var obj = JsonHelper.Deserialize<object>( data );
 
             // Emit to general listeners regardless of event type
             foreach (var action in _generalListeners)
